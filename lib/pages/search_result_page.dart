@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchResultPage extends StatelessWidget {
-  const SearchResultPage({super.key});
+  const SearchResultPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final argList = ModalRoute.of(context)!.settings.arguments as List;
     final BusRoute route = argList[0];
     final String departureDate = argList[1];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Search Results'),
@@ -22,7 +21,7 @@ class SearchResultPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         children: [
           Text(
-            'Showing Results for ${route.cityFrom} to ${route.cityTo} on $departureDate',
+            'Showing results for ${route.cityFrom} to ${route.cityTo} on $departureDate',
             style: const TextStyle(fontSize: 18),
           ),
           Consumer<AppDataProvider>(
@@ -42,7 +41,7 @@ class SearchResultPage extends StatelessWidget {
                 if (snapshot.hasError) {
                   return const Text('Failed to fetch data');
                 }
-                return const Text('Please Wait');
+                return const Text('Please wait');
               },
             ),
           )
@@ -56,13 +55,13 @@ class ScheduleItemView extends StatelessWidget {
   final String date;
   final BusSchedule schedule;
 
-  const ScheduleItemView(
-      {super.key, required this.schedule, required this.date});
+  const ScheduleItemView({Key? key, required this.schedule, required this.date})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> Navigator.pushNamed(context, routeNameSeatPlanPage, arguments: [schedule, date]),
+      onTap: () => Navigator.pushNamed(context, routeNameSeatPlanPage, arguments: [schedule, date]),
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +78,16 @@ class ScheduleItemView extends StatelessWidget {
                 children: [
                   Text(
                     'From: ${schedule.busRoute.cityFrom}',
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(
+                      fontSize: 17,
+                    ),
                   ),
                   Text(
                     'To: ${schedule.busRoute.cityTo}',
-                    style: const TextStyle(fontSize: 17),
-                  )
-
+                    style: const TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -96,17 +98,19 @@ class ScheduleItemView extends StatelessWidget {
                 children: [
                   Text(
                     'Departure Time: ${schedule.departureTime}',
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(
+                      fontSize: 17,
+                    ),
                   ),
                   Text(
                     'Total Seat: ${schedule.bus.totalSeat}',
-                    style: const TextStyle(fontSize: 17),
-                  )
-
+                    style: const TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
                 ],
               ),
-            )
-
+            ),
           ],
         ),
       ),
