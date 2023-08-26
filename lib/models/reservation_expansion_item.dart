@@ -5,13 +5,13 @@ import 'customer.dart';
 class ReservationExpansionItem {
   ReservationExpansionHeader header;
   ReservationExpansionBody body;
-  bool isExpansion;
+  bool isExpanded;
 
   ReservationExpansionItem(
       {
         required this.header,
         required this.body,
-        this.isExpansion = false,
+        this.isExpanded = false,
       });
 }
 
