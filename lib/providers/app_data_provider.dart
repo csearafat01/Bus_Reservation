@@ -5,8 +5,8 @@ import 'package:bus_reservation_udemy/models/response_model.dart';
 import 'package:flutter/material.dart';
 
 import '../models/bus_reservation.dart';
+import '../models/bus_route.dart';
 import '../models/bus_schedule.dart';
-import '../models/but_route.dart';
 import '../models/reservation_expansion_item.dart';
 
 class AppDataProvider extends ChangeNotifier {
