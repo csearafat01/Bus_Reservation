@@ -11,9 +11,9 @@ import 'package:bus_reservation_udemy/utils/constants.dart';
 
 class DummyDataSource extends DataSource {
   @override
-  Future<ResponseModel> addBus(Bus bus) {
-    // TODO: implement addBus
-    throw UnimplementedError();
+  Future<ResponseModel> addBus(Bus bus) async{
+    TempDB.tableBus.add(bus);
+    return ResponseModel(responseStatus: ResponseStatus.SAVED, statusCode: 200, message: 'Bus Saved', object: {});
   }
 
   @override
@@ -24,9 +24,9 @@ class DummyDataSource extends DataSource {
   }
 
   @override
-  Future<ResponseModel> addRoute(BusRoute busRoute) {
-    // TODO: implement addRoute
-    throw UnimplementedError();
+  Future<ResponseModel> addRoute(BusRoute busRoute) async{
+    TempDB.tableRoute.add(busRoute);
+    return ResponseModel(responseStatus: ResponseStatus.SAVED, statusCode: 200, message: 'Route Saved', object: {});
   }
 
   @override
@@ -59,9 +59,8 @@ class DummyDataSource extends DataSource {
   }
 
   @override
-  Future<List<BusReservation>> getReservationsByMobile(String mobile) {
-    // TODO: implement getReservationsByMobile
-    throw UnimplementedError();
+  Future<List<BusReservation>> getReservationsByMobile(String mobile) async{
+    return TempDB.tableReservation.where((element) => element.customer.mobile == mobile).toList();
   }
 
   @override
