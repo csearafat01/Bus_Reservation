@@ -24,26 +24,8 @@ class AppDataProvider extends ChangeNotifier {
   List<BusReservation> get reservationList => _reservationList;
   final DataSource _dataSource = DummyDataSource();
 
-  Future<ResponseModel> addBus(Bus bus){
-    return _dataSource.addBus(bus);
-  }
-
-  Future<ResponseModel> addRoute(BusRoute route){
-    return _dataSource.addRoute(route);
-  }
-
   Future<ResponseModel> addReservation(BusReservation reservation) {
     return _dataSource.addReservation(reservation);
-  }
-
-Future<List<BusReservation>> getAllReservations() async{
-    _reservationList = await _dataSource.getAllReservation();
-    notifyListeners();
-    return _reservationList;
-  }
-
-  Future<List<BusReservation>> getReservationsByMobile(String mobile) {
-    return _dataSource.getReservationsByMobile(mobile);
   }
 
   Future<BusRoute?> getRouteByCityFromAndCityTo(String cityFrom,
@@ -61,9 +43,9 @@ Future<List<BusReservation>> getAllReservations() async{
         scheduleId, departureDate);
   }
 
-  List<ReservationExpansionItem> getExpansionItems(List<BusReservation> reservationList) {
-    return List.generate(reservationList.length, (index) {
-      final reservation = reservationList[index];
+  List<ReservationExpansionItem> getExpansionItems() {
+    return List.generate(_reservationList.length, (index) {
+      final reservation = _reservationList[index];
       return ReservationExpansionItem(
           header: ReservationExpansionHeader(
             reservationId: reservation.reservationId,
