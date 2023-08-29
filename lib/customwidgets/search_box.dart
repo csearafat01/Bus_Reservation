@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchBox extends StatefulWidget {
   final Function(String) onSubmit;
-  const SearchBox({super.key, required this.onSubmit});
+  const SearchBox({Key? key, required this.onSubmit}) : super(key: key);
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -20,7 +19,7 @@ class _SearchBoxState extends State<SearchBox> {
         controller: _searchController,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: 'Search With Mobile',
+          labelText: 'Search with Mobile',
           suffix: IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {

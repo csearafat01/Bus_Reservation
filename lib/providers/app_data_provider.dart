@@ -32,12 +32,36 @@ class AppDataProvider extends ChangeNotifier {
     return _dataSource.addRoute(route);
   }
 
+  Future<ResponseModel> addSchedule(BusSchedule busSchedule) {
+    return _dataSource.addSchedule(busSchedule);
+  }
+
   Future<ResponseModel> addReservation(BusReservation reservation) {
     return _dataSource.addReservation(reservation);
   }
 
-  Future<BusRoute?> getRouteByCityFromAndCityTo(String cityFrom,
-      String cityTo) {
+  void getAllBus() async {
+    _busList = await _dataSource.getAllBus();
+    notifyListeners();
+  }
+
+  void getAllBusRoutes() async {
+    _routeList = await _dataSource.getAllRoutes();
+    notifyListeners();
+  }
+
+  Future<List<BusReservation>> getAllReservations() async {
+    _reservationList = await _dataSource.getAllReservation();
+    notifyListeners();
+    return _reservationList;
+  }
+
+  Future<List<BusReservation>> getReservationsByMobile(String mobile) {
+    return _dataSource.getReservationsByMobile(mobile);
+  }
+
+  Future<BusRoute?> getRouteByCityFromAndCityTo(
+      String cityFrom, String cityTo) {
     return _dataSource.getRouteByCityFromAndCityTo(cityFrom, cityTo);
   }
 
@@ -51,21 +75,23 @@ class AppDataProvider extends ChangeNotifier {
         scheduleId, departureDate);
   }
 
-  List<ReservationExpansionItem> getExpansionItems() {
-    return List.generate(_reservationList.length, (index) {
-      final reservation = _reservationList[index];
+  List<ReservationExpansionItem> getExpansionItems(List<BusReservation> reservationList) {
+    return List.generate(reservationList.length, (index) {
+      final reservation = reservationList[index];
       return ReservationExpansionItem(
-          header: ReservationExpansionHeader(
-            reservationId: reservation.reservationId,
-            departureDate: reservation.departureDate,
-            schedule: reservation.busSchedule,
-            timestamp: reservation.timestamp,
-            reservationStatus: reservation.reservationStatus,),
-          body: ReservationExpansionBody(customer: reservation.customer,
-              totalSeatedBooked: reservation.totalSeatBooked,
-              seatNumbers: reservation.seatNumbers,
-              totalPrice: reservation.totalPrice,),
-
+        header: ReservationExpansionHeader(
+          reservationId: reservation.reservationId,
+          departureDate: reservation.departureDate,
+          schedule: reservation.busSchedule,
+          timestamp: reservation.timestamp,
+          reservationStatus: reservation.reservationStatus,
+        ),
+        body: ReservationExpansionBody(
+          customer: reservation.customer,
+          totalSeatedBooked: reservation.totalSeatBooked,
+          seatNumbers: reservation.seatNumbers,
+          totalPrice: reservation.totalPrice,
+        ),
       );
     });
   }

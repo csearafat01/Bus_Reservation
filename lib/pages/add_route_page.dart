@@ -112,11 +112,10 @@ class _AddRoutePageState extends State<AddRoutePage> {
         cityTo: to!,
         distanceInKm: double.parse(distanceController.text),
       );
-
       Provider.of<AppDataProvider>(context, listen: false)
           .addRoute(route)
-          .then((response){
-        if(response.responseStatus == ResponseStatus.SAVED){
+          .then((response) {
+        if(response.responseStatus == ResponseStatus.SAVED) {
           showMsg(context, response.message);
           resetFields();
         }

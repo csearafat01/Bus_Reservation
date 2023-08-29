@@ -137,16 +137,14 @@ class _AddBusPageState extends State<AddBusPage> {
         busType: busType!,
         totalSeat: int.parse(seatController.text),
       );
-
       Provider.of<AppDataProvider>(context, listen: false)
       .addBus(bus)
-      .then((response){
-        if(response.responseStatus == ResponseStatus.SAVED){
+      .then((response) {
+        if(response.responseStatus == ResponseStatus.SAVED) {
           showMsg(context, response.message);
           resetFields();
         }
       });
-
     }
   }
 
